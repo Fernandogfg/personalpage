@@ -1,0 +1,75 @@
+{
+  "nav": {
+    "home": "Início",
+    "about": "Sobre",
+    "skills": "Skills",
+    "projects": "Projetos",
+    "certificates": "Certificados",
+    "contact": "Contato"
+  },
+  "hero": {
+    "greeting": "Olá, eu sou",
+    "name": "Fernando Gabriel",
+    "roles": ["Desenvolvedor Full Stack", "Entusiasta React", "Solucionador de Problemas"],
+    "cta_projects": "Ver Projetos",
+    "cta_cv": "Baixar CV"
+  },
+  "about": {
+    "title": "Sobre Mim",
+    "subtitle": "Minha jornada na tecnologia",
+    "description": "Desenvolvedor Full Stack Junior apaixonado por criar soluções web inovadoras. Atualmente cursando Ciência da Computação na Universidade Estácio de Sá, com experiência internacional no Canadá e formação intensiva em desenvolvimento Full Stack pela Mach1.",
+    "location": "Campo Grande, MS",
+    "education": "Ciência da Computação",
+    "languages": "Português & Inglês",
+    "timeline": {
+      "2017": { "title": "Engenharia Ambiental", "desc": "Início na UFMS — base analítica e resolução de problemas" },
+      "2018": { "title": "Vancouver, Canadá", "desc": "Diploma de Negócios e Inglês Avançado na LCC" },
+      "2022": { "title": "Ciência da Computação", "desc": "Início do bacharelado na Universidade Estácio de Sá" },
+      "2024": { "title": "Full Stack Mach1", "desc": "Formação intensiva em desenvolvimento web Full Stack" },
+      "now": { "title": "Dev Full Stack Jr.", "desc": "Construindo o futuro, uma linha de código por vez" }
+    }
+  },
+  "skills": {
+    "title": "Skills",
+    "subtitle": "Tecnologias que domino",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "tools": "Ferramentas"
+  },
+  "projects": {
+    "title": "Projetos",
+    "subtitle": "O que tenho construído",
+    "filter_all": "Todos",
+    "filter_frontend": "Frontend",
+    "filter_backend": "Backend",
+    "filter_fullstack": "Full Stack",
+    "view_code": "Código",
+    "view_demo": "Demo"
+  },
+  "certificates": {
+    "title": "Certificados",
+    "subtitle": "Formações e conquistas",
+    "items": {
+      "fisk": { "title": "Inglês Completo — Fisk", "desc": "6 anos de estudo, concluído em 2016", "duration": "6 anos" },
+      "lcc_english": { "title": "Inglês Avançado — LCC Vancouver", "desc": "Curso intensivo no Canadá", "duration": "4 meses" },
+      "lcc_business": { "title": "Diploma de Negócios — LCC Vancouver", "desc": "Programa de negócios internacional", "duration": "3 meses" },
+      "senac": { "title": "Microsoft Office — SENAC", "desc": "Campo Grande, MS", "duration": "Completo" },
+      "mach1": { "title": "Full Stack Development — Mach1", "desc": "Formação intensiva em desenvolvimento web", "duration": "1 ano" }
+    }
+  },
+  "contact": {
+    "title": "Contato",
+    "subtitle": "Vamos conversar?",
+    "name_label": "Nome",
+    "email_label": "Email",
+    "message_label": "Mensagem",
+    "send": "Enviar Mensagem",
+    "name_placeholder": "Seu nome",
+    "email_placeholder": "seu@email.com",
+    "message_placeholder": "Sua mensagem..."
+  },
+  "footer": {
+    "made_with": "Feito com",
+    "by": "por Fernando Gabriel"
+  }
+}

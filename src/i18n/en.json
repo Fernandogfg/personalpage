@@ -1,0 +1,75 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "certificates": "Certificates",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "name": "Fernando Gabriel",
+    "roles": ["Full Stack Developer", "React Enthusiast", "Problem Solver"],
+    "cta_projects": "View Projects",
+    "cta_cv": "Download CV"
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "My journey in technology",
+    "description": "Junior Full Stack Developer passionate about building innovative web solutions. Currently pursuing a Computer Science degree at Estácio de Sá University, with international experience in Canada and intensive Full Stack training at Mach1.",
+    "location": "Campo Grande, MS",
+    "education": "Computer Science",
+    "languages": "Portuguese & English",
+    "timeline": {
+      "2017": { "title": "Environmental Engineering", "desc": "Started at UFMS — analytical foundation and problem-solving" },
+      "2018": { "title": "Vancouver, Canada", "desc": "Business Diploma and Advanced English at LCC" },
+      "2022": { "title": "Computer Science", "desc": "Started BS degree at Estácio de Sá University" },
+      "2024": { "title": "Full Stack Mach1", "desc": "Intensive Full Stack web development training" },
+      "now": { "title": "Jr. Full Stack Dev", "desc": "Building the future, one line of code at a time" }
+    }
+  },
+  "skills": {
+    "title": "Skills",
+    "subtitle": "Technologies I work with",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "tools": "Tools"
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "What I've been building",
+    "filter_all": "All",
+    "filter_frontend": "Frontend",
+    "filter_backend": "Backend",
+    "filter_fullstack": "Full Stack",
+    "view_code": "Code",
+    "view_demo": "Demo"
+  },
+  "certificates": {
+    "title": "Certificates",
+    "subtitle": "Education & achievements",
+    "items": {
+      "fisk": { "title": "Complete English — Fisk", "desc": "6 years of study, completed in 2016", "duration": "6 years" },
+      "lcc_english": { "title": "Advanced English — LCC Vancouver", "desc": "Intensive course in Canada", "duration": "4 months" },
+      "lcc_business": { "title": "Business Diploma — LCC Vancouver", "desc": "International business program", "duration": "3 months" },
+      "senac": { "title": "Microsoft Office — SENAC", "desc": "Campo Grande, MS", "duration": "Complete" },
+      "mach1": { "title": "Full Stack Development — Mach1", "desc": "Intensive web development training", "duration": "1 year" }
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Let's talk?",
+    "name_label": "Name",
+    "email_label": "Email",
+    "message_label": "Message",
+    "send": "Send Message",
+    "name_placeholder": "Your name",
+    "email_placeholder": "your@email.com",
+    "message_placeholder": "Your message..."
+  },
+  "footer": {
+    "made_with": "Made with",
+    "by": "by Fernando Gabriel"
+  }
+}
