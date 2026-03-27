@@ -1,0 +1,32 @@
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 20px;
+  background: rgba(17, 17, 40, 0.6);
+  color: var(--color-accent);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.toggle:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--glow-accent);
+}
+
+.active {
+  color: var(--color-accent);
+}
+
+.inactive {
+  color: var(--color-text-muted);
+}
+
+.divider {
+  color: var(--color-text-muted);
+}
