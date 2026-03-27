@@ -1,0 +1,97 @@
+.card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid rgba(0, 212, 255, 0.1);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: all var(--transition-medium);
+}
+
+.card:hover {
+  border-color: rgba(0, 212, 255, 0.3);
+  box-shadow: var(--glow-accent);
+}
+
+.imageArea {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.imageArea img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 102, 255, 0.1));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholderIcon {
+  font-family: var(--font-mono);
+  font-size: 2.5rem;
+  color: var(--color-accent);
+  opacity: 0.4;
+}
+
+.content {
+  padding: 1.5rem;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--color-text);
+  margin-bottom: 0.75rem;
+}
+
+.description {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.tag {
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  background: rgba(0, 212, 255, 0.1);
+  color: var(--color-accent);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+}
+
+.links {
+  display: flex;
+  gap: 1rem;
+}
+
+.link {
+  font-size: 0.9rem;
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.link:hover {
+  color: var(--color-text);
+}
