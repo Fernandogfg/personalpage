@@ -1,0 +1,115 @@
+.timeline {
+  position: relative;
+  padding: 2rem 0;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--color-accent), var(--color-secondary), transparent);
+  transform: translateX(-50%);
+}
+
+.entry {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+  position: relative;
+  width: 50%;
+}
+
+.left {
+  padding-right: 3rem;
+  text-align: right;
+  align-self: flex-start;
+}
+
+.right {
+  padding-left: 3rem;
+  margin-left: 50%;
+}
+
+.badge {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  border: 2px solid var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  box-shadow: var(--glow-accent);
+  z-index: 2;
+}
+
+/* Position badges correctly for left/right entries */
+.left .badge {
+  left: auto;
+  right: -25px;
+  transform: none;
+}
+
+.right .badge {
+  left: -25px;
+  transform: none;
+}
+
+.card {
+  padding: 1.5rem;
+}
+
+.cardTitle {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+}
+
+.cardDesc {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .line {
+    left: 20px;
+  }
+
+  .entry {
+    width: 100%;
+    padding-left: 4rem;
+    padding-right: 0;
+    text-align: left;
+  }
+
+  .left {
+    text-align: left;
+    padding-right: 0;
+    padding-left: 4rem;
+  }
+
+  .right {
+    margin-left: 0;
+    padding-left: 4rem;
+  }
+
+  .left .badge,
+  .right .badge {
+    left: 0;
+    right: auto;
+    transform: none;
+  }
+}
