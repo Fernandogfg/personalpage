@@ -7,10 +7,12 @@ export default function ParticleCanvas({ intensity = 1 }) {
   const particlesRef = useRef([]);
   const animationRef = useRef(null);
 
-  const PARTICLE_COUNT = Math.round(80 + 20 * intensity);
+  const PARTICLE_COUNT = Math.round(20 + 20 * intensity);
   const CONNECTION_DISTANCE = 150;
   const MOUSE_ATTRACTION_DISTANCE = 150;
   const ATTRACTION_STRENGTH = 0.02;
+  const MAX_SPEED = 2.5;
+  const FRICTION = 0.98;
   const ACCENT_COLOR = '#00d4ff';
 
   // Initialize particles
@@ -83,6 +85,17 @@ export default function ParticleCanvas({ intensity = 1 }) {
           p.vx += Math.cos(angle) * ATTRACTION_STRENGTH;
           p.vy += Math.sin(angle) * ATTRACTION_STRENGTH;
         }
+      }
+
+      // Friction — dissipa velocidade gradualmente
+      p.vx *= FRICTION;
+      p.vy *= FRICTION;
+
+      // Limite de velocidade máxima
+      const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+      if (speed > MAX_SPEED) {
+        p.vx = (p.vx / speed) * MAX_SPEED;
+        p.vy = (p.vy / speed) * MAX_SPEED;
       }
 
       // Draw particle
