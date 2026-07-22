@@ -76,7 +76,6 @@ function RecruiterHero() {
           </a>
         </motion.div>
       </div>
-      <ScrollArrow />
     </section>
   );
 }
@@ -92,10 +91,13 @@ function AboutSection() {
   return (
     <section className="section" id="about">
       <div className="container">
-        <motion.h2 className="section-title"
-          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          {t('about.title')}
-        </motion.h2>
+        <div className={styles.aboutHeader}>
+          <motion.h2 className="section-title"
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            {t('about.title')}
+          </motion.h2>
+          <ScrollArrow />
+        </div>
         <motion.p className="section-subtitle"
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           transition={{ delay: 0.1 }}>

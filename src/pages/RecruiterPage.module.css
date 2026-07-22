@@ -60,8 +60,7 @@
 /* Scroll arrow */
 .scrollArrow {
   display: flex;
-  justify-content: center;
-  padding-bottom: 4rem;
+  align-items: center;
 }
 
 .arrowIcon {
@@ -71,6 +70,13 @@
 }
 
 /* About section */
+.aboutHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
 .description {
   font-size: 1.05rem;
   color: var(--color-text-muted);
