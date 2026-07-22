@@ -11,8 +11,8 @@ export default function ParticleCanvas({ intensity = 1 }) {
   const CONNECTION_DISTANCE = 150;
   const MOUSE_ATTRACTION_DISTANCE = 150;
   const ATTRACTION_STRENGTH = 0.02;
-  const MAX_SPEED = 1;
-  const FRICTION = 1; // Friction to slow down particles over time
+  const MAX_SPEED = 0.4;
+  const FRICTION = 0.98;
   const ACCENT_COLOR = '#00d4ff';
 
   // Initialize particles
