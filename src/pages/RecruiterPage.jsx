@@ -171,7 +171,6 @@ function ProjectsSection() {
   const filters = [
     { key: 'all', label: t('projects.filter_all') },
     { key: 'frontend', label: t('projects.filter_frontend') },
-    { key: 'backend', label: t('projects.filter_backend') },
     { key: 'fullstack', label: t('projects.filter_fullstack') },
   ];
 
