@@ -54,7 +54,7 @@
       "lcc_english": { "title": "Inglês Avançado — LCC Vancouver", "desc": "Curso intensivo no Canadá", "duration": "4 meses" },
       "lcc_business": { "title": "Diploma de Negócios — LCC Vancouver", "desc": "Programa de negócios internacional", "duration": "3 meses" },
       "senac": { "title": "Microsoft Office — SENAC", "desc": "Campo Grande, MS", "duration": "Completo" },
-      "mach1": { "title": "Full Stack Development — Mach1", "desc": "Formação intensiva em desenvolvimento web", "duration": "1 ano" }
+      "mach1": { "title": "Front-End Expert — Mach1", "desc": "Trilha Dev FullStack: HTML, CSS, JavaScript, React.js, Git e mais — 810h", "duration": "810h (2022–2023)" }
     }
   },
   "contact": {
