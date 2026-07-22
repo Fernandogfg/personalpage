@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import Modal from '../Modal/Modal';
 import styles from './CertificateCard.module.css';
 
-export default function CertificateCard({ title, description, duration, icon, delay = 0 }) {
+export default function CertificateCard({ title, description, duration, icon, file, delay = 0 }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -34,9 +34,15 @@ export default function CertificateCard({ title, description, duration, icon, de
             <span className={styles.durationLabel}>Duração:</span>
             <span className={styles.durationValue}>{duration}</span>
           </div>
-          <p className={styles.modalPlaceholder}>
-            📄 Espaço reservado para imagem/PDF do certificado
-          </p>
+          {file ? (
+            <a href={file} target="_blank" rel="noopener noreferrer" className={styles.viewLink}>
+              📄 Ver certificado
+            </a>
+          ) : (
+            <p className={styles.modalPlaceholder}>
+              Certificado ainda não digitalizado
+            </p>
+          )}
         </div>
       </Modal>
     </>

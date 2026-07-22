@@ -18,5 +18,6 @@ export const certificates = [
   {
     id: 'mach1',
     icon: '🚀',
+    file: '/certificado_mach1.pdf',
   },
 ];

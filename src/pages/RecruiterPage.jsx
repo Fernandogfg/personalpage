@@ -236,6 +236,7 @@ function CertificatesSection() {
               description={t(`certificates.items.${cert.id}.desc`)}
               duration={t(`certificates.items.${cert.id}.duration`)}
               icon={cert.icon}
+              file={cert.file}
               delay={i * 0.1}
             />
           ))}
