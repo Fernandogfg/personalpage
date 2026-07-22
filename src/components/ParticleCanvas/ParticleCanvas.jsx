@@ -7,12 +7,12 @@ export default function ParticleCanvas({ intensity = 1 }) {
   const particlesRef = useRef([]);
   const animationRef = useRef(null);
 
-  const PARTICLE_COUNT = Math.round(20 + 20 * intensity);
+  const PARTICLE_COUNT = Math.round(50 + 50 * intensity);
   const CONNECTION_DISTANCE = 150;
   const MOUSE_ATTRACTION_DISTANCE = 150;
   const ATTRACTION_STRENGTH = 0.02;
-  const MAX_SPEED = 2.5;
-  const FRICTION = 0.98;
+  const MAX_SPEED = 1;
+  const FRICTION = 1; // Friction to slow down particles over time
   const ACCENT_COLOR = '#00d4ff';
 
   // Initialize particles

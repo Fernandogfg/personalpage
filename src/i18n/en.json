@@ -1,11 +1,11 @@
 {
   "nav": {
-    "home": "Home",
-    "about": "About",
-    "skills": "Skills",
-    "projects": "Projects",
-    "certificates": "Certificates",
-    "contact": "Contact"
+    "clients": "Clients",
+    "recruiters": "Recruiters"
+  },
+  "mode_toggle": {
+    "clients": "Clients",
+    "recruiters": "Recruiters"
   },
   "hero": {
     "greeting": "Hi, I'm",
@@ -64,6 +64,9 @@
     "email_label": "Email",
     "message_label": "Message",
     "send": "Send Message",
+    "sending": "Sending...",
+    "success": "Message sent successfully! I'll get back to you soon.",
+    "error": "Failed to send. Please try again or contact me by email.",
     "name_placeholder": "Your name",
     "email_placeholder": "your@email.com",
     "message_placeholder": "Your message..."
@@ -71,5 +74,46 @@
   "footer": {
     "made_with": "Made with",
     "by": "by Fernando Gabriel"
+  },
+  "client_hero": {
+    "headline": "Turning your ideas into digital solutions",
+    "subtitle": "Professional web development focused on results",
+    "cta": "Request a Quote"
+  },
+  "services": {
+    "title": "Services",
+    "subtitle": "What I can do for you",
+    "items": {
+      "websites": {
+        "title": "Websites & Landing Pages",
+        "desc": "Modern, responsive sites optimized for conversion"
+      },
+      "webapps": {
+        "title": "Web Applications",
+        "desc": "Complete web systems with integrated frontend and backend"
+      },
+      "apis": {
+        "title": "APIs & Backend",
+        "desc": "Robust and scalable RESTful APIs for your business"
+      },
+      "maintenance": {
+        "title": "Maintenance & Support",
+        "desc": "Ongoing updates, fixes and improvements for your project"
+      }
+    }
+  },
+  "client_contact": {
+    "title": "Let's Work Together?",
+    "subtitle": "Tell me about your project",
+    "project_label": "Describe your project",
+    "project_placeholder": "Tell me what you need...",
+    "budget_label": "Estimated budget",
+    "budget_placeholder": "Ex: $500 - $2,000"
+  },
+  "recruiter_hero": {
+    "greeting": "Hi, I'm",
+    "name": "Fernando Gabriel",
+    "roles": ["Full Stack Developer", "React Enthusiast", "Problem Solver"],
+    "cta_cv": "Download CV"
   }
 }

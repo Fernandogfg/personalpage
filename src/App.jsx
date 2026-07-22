@@ -1,12 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Layout from './components/Layout/Layout';
-import Home from './pages/Home';
-import About from './pages/About';
-import Skills from './pages/Skills';
-import Projects from './pages/Projects';
-import Certificates from './pages/Certificates';
-import Contact from './pages/Contact';
+import ClientPage from './pages/ClientPage';
+import RecruiterPage from './pages/RecruiterPage';
 
 function App() {
   return (
@@ -14,12 +10,8 @@ function App() {
       <AnimatePresence mode="wait">
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="about" element={<About />} />
-            <Route path="skills" element={<Skills />} />
-            <Route path="projects" element={<Projects />} />
-            <Route path="certificates" element={<Certificates />} />
-            <Route path="contact" element={<Contact />} />
+            <Route index element={<ClientPage />} />
+            <Route path="recruiter" element={<RecruiterPage />} />
           </Route>
         </Routes>
       </AnimatePresence>

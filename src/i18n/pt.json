@@ -1,11 +1,11 @@
 {
   "nav": {
-    "home": "Início",
-    "about": "Sobre",
-    "skills": "Skills",
-    "projects": "Projetos",
-    "certificates": "Certificados",
-    "contact": "Contato"
+    "clients": "Clientes",
+    "recruiters": "Recrutadores"
+  },
+  "mode_toggle": {
+    "clients": "Clientes",
+    "recruiters": "Recrutadores"
   },
   "hero": {
     "greeting": "Olá, eu sou",
@@ -64,6 +64,9 @@
     "email_label": "Email",
     "message_label": "Mensagem",
     "send": "Enviar Mensagem",
+    "sending": "Enviando...",
+    "success": "Mensagem enviada com sucesso! Entrarei em contato em breve.",
+    "error": "Erro ao enviar. Tente novamente ou entre em contato por email.",
     "name_placeholder": "Seu nome",
     "email_placeholder": "seu@email.com",
     "message_placeholder": "Sua mensagem..."
@@ -71,5 +74,46 @@
   "footer": {
     "made_with": "Feito com",
     "by": "por Fernando Gabriel"
+  },
+  "client_hero": {
+    "headline": "Transformo suas ideias em soluções digitais",
+    "subtitle": "Desenvolvimento web profissional com foco em resultados",
+    "cta": "Solicitar Orçamento"
+  },
+  "services": {
+    "title": "Serviços",
+    "subtitle": "O que posso fazer por você",
+    "items": {
+      "websites": {
+        "title": "Sites & Landing Pages",
+        "desc": "Sites modernos, responsivos e otimizados para conversão"
+      },
+      "webapps": {
+        "title": "Aplicações Web",
+        "desc": "Sistemas web completos com frontend e backend integrados"
+      },
+      "apis": {
+        "title": "APIs & Backend",
+        "desc": "APIs RESTful robustas e escaláveis para seu negócio"
+      },
+      "maintenance": {
+        "title": "Manutenção & Suporte",
+        "desc": "Atualizações, correções e melhorias contínuas no seu projeto"
+      }
+    }
+  },
+  "client_contact": {
+    "title": "Vamos Trabalhar Juntos?",
+    "subtitle": "Conte-me sobre seu projeto",
+    "project_label": "Descreva seu projeto",
+    "project_placeholder": "Conte sobre o que você precisa...",
+    "budget_label": "Orçamento estimado",
+    "budget_placeholder": "Ex: R$ 2.000 - R$ 5.000"
+  },
+  "recruiter_hero": {
+    "greeting": "Olá, eu sou",
+    "name": "Fernando Gabriel",
+    "roles": ["Desenvolvedor Full Stack", "Entusiasta React", "Solucionador de Problemas"],
+    "cta_cv": "Baixar CV"
   }
 }
