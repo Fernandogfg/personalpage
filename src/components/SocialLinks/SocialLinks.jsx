@@ -40,6 +40,24 @@ const socials = [
 ];
 
 export default function SocialLinks() {
+  const handleEmailClick = async (e) => {
+    e.preventDefault();
+    try {
+      await navigator.clipboard.writeText('fernandofgfg10@gmail.com');
+      const tooltip = document.createElement('div');
+      tooltip.textContent = 'Email copiado!';
+      Object.assign(tooltip.style, {
+        position: 'fixed', bottom: '2rem', left: '50%', transform: 'translateX(-50%)',
+        background: '#00d4ff', color: '#0a0a1a', padding: '0.5rem 1rem',
+        borderRadius: '8px', fontWeight: '600', fontSize: '0.9rem', zIndex: '9999',
+      });
+      document.body.appendChild(tooltip);
+      setTimeout(() => tooltip.remove(), 2000);
+    } catch {
+      window.location.href = 'mailto:fernandofgfg10@gmail.com';
+    }
+  };
+
   return (
     <div className={styles.links}>
       {socials.map((social) => (
@@ -51,6 +69,7 @@ export default function SocialLinks() {
           className={styles.link}
           aria-label={social.name}
           title={social.name}
+          onClick={social.name === 'Email' ? handleEmailClick : undefined}
         >
           {social.icon}
         </a>

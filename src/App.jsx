@@ -10,8 +10,8 @@ function App() {
       <AnimatePresence mode="wait">
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<ClientPage />} />
-            <Route path="recruiter" element={<RecruiterPage />} />
+            <Route index element={<RecruiterPage />} />
+            <Route path="client" element={<ClientPage />} />
           </Route>
         </Routes>
       </AnimatePresence>

@@ -10,11 +10,13 @@ export default function Layout() {
   return (
     <>
       <ParticleCanvas />
-      <Navbar />
-      <main style={{ paddingTop: '70px', position: 'relative', zIndex: 1 }}>
-        <Outlet />
-      </main>
-      <Footer />
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <Navbar />
+        <main style={{ paddingTop: '70px' }}>
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
     </>
   );
 }

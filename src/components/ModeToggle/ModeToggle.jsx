@@ -7,10 +7,10 @@ export default function ModeToggle() {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
-  const isRecruiter = location.pathname.startsWith('/recruiter');
+  const isClient = location.pathname.startsWith('/client');
 
   const handleToggle = () => {
-    navigate(isRecruiter ? '/' : '/recruiter');
+    navigate(isClient ? '/' : '/client');
   };
 
   return (
@@ -18,19 +18,19 @@ export default function ModeToggle() {
       type="button"
       className={styles.toggle}
       onClick={handleToggle}
-      aria-label={isRecruiter ? 'Switch to client view' : 'Switch to recruiter view'}
+      aria-label={isClient ? 'Switch to recruiter view' : 'Switch to client view'}
     >
-      <span className={`${styles.label} ${!isRecruiter ? styles.activeLabel : ''}`}>
+      <span className={`${styles.label} ${isClient ? styles.activeLabel : ''}`}>
         {t('mode_toggle.clients')}
       </span>
       <div className={styles.track}>
         <motion.div
           className={styles.thumb}
-          animate={{ x: isRecruiter ? 24 : 0 }}
+          animate={{ x: isClient ? 0 : 24 }}
           transition={{ type: 'spring', stiffness: 500, damping: 30 }}
         />
       </div>
-      <span className={`${styles.label} ${isRecruiter ? styles.activeLabel : ''}`}>
+      <span className={`${styles.label} ${!isClient ? styles.activeLabel : ''}`}>
         {t('mode_toggle.recruiters')}
       </span>
     </button>
