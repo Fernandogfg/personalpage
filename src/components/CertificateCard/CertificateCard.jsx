@@ -34,7 +34,14 @@ export default function CertificateCard({ title, description, duration, icon, fi
             <span className={styles.durationLabel}>Duração:</span>
             <span className={styles.durationValue}>{duration}</span>
           </div>
-          {file ? (
+          {file && file.match(/\.(jpg|jpeg|png|webp)$/i) ? (
+            <>
+              <img src={file} alt={title} className={styles.certImage} />
+              <a href={file} target="_blank" rel="noopener noreferrer" className={styles.viewLink}>
+                🔍 Ver em tamanho completo
+              </a>
+            </>
+          ) : file ? (
             <a href={file} target="_blank" rel="noopener noreferrer" className={styles.viewLink}>
               📄 Ver certificado
             </a>

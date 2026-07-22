@@ -50,10 +50,11 @@
     "title": "Certificados",
     "subtitle": "Formações e conquistas",
     "items": {
-      "fisk": { "title": "Inglês Completo — Fisk", "desc": "6 anos de estudo, concluído em 2016", "duration": "6 anos" },
-      "lcc_english": { "title": "Inglês Avançado — LCC Vancouver", "desc": "Curso intensivo no Canadá", "duration": "4 meses" },
-      "lcc_business": { "title": "Diploma de Negócios — LCC Vancouver", "desc": "Programa de negócios internacional", "duration": "3 meses" },
+      "fisk": { "title": "Inglês Teens Advanced — Fisk", "desc": "Curso completo de inglês, Campo Grande-MS (2010–2015)", "duration": "~5 anos" },
+      "lcc_english": { "title": "Inglês Avançado — LCC Vancouver", "desc": "Intensive English Certificate — IE7 Advanced, 100h", "duration": "100h (2017)" },
+      "lcc_business": { "title": "Diploma de Negócios — LCC Vancouver", "desc": "Business Diploma Program — Fundamental Level, nota 85.35", "duration": "100h (2017)" },
       "senac": { "title": "Microsoft Office — SENAC", "desc": "Campo Grande, MS", "duration": "Completo" },
+      "kumon": { "title": "Português — Kumon", "desc": "Aluno adiantado, estágio L 100 — Bronze", "duration": "2016" },
       "mach1": { "title": "Front-End Expert — Mach1", "desc": "Trilha Dev FullStack: HTML, CSS, JavaScript, React.js, Git e mais — 810h", "duration": "810h (2022–2023)" }
     }
   },
