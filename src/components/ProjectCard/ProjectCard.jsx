@@ -20,8 +20,13 @@ export default function ProjectCard({ project, delay = 0 }) {
         {project.image ? (
           <img src={project.image} alt={project.title} />
         ) : (
-          <div className={styles.placeholder}>
-            <span className={styles.placeholderIcon}>{'</>'}</span>
+          <div
+            className={styles.placeholder}
+            style={project.gradient ? { background: project.gradient } : undefined}
+          >
+            <span className={styles.placeholderIcon}>
+              {project.icon || '</>'}
+            </span>
           </div>
         )}
       </div>
