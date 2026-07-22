@@ -71,7 +71,7 @@ function RecruiterHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6 }}
         >
-          <a href={i18n.language === 'en' ? '/cv_en.pdf' : '/cv.pdf'} download className="btn btn-primary">
+          <a href={i18n.language === 'en' ? '/CV_Fernando_Gabriel_EN.pdf' : '/CV_Fernando_Gabriel.pdf'} download className="btn btn-primary">
             {t('recruiter_hero.cta_cv')}
           </a>
         </motion.div>
@@ -243,7 +243,7 @@ function CertificatesSection() {
 
         <motion.div className={styles.cvButton}
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <a href={i18n.language === 'en' ? '/cv_en.pdf' : '/cv.pdf'} download className="btn btn-outline">
+          <a href={i18n.language === 'en' ? '/CV_Fernando_Gabriel_EN.pdf' : '/CV_Fernando_Gabriel.pdf'} download className="btn btn-outline">
             {t('recruiter_hero.cta_cv')}
           </a>
         </motion.div>
