@@ -228,7 +228,14 @@ function CertificatesSection() {
 
         <div className={styles.certsGrid}>
           {certificates.map((cert, i) => (
-            <CertificateCard key={cert.id} certificate={cert} delay={i * 0.1} />
+            <CertificateCard
+              key={cert.id}
+              title={t(`certificates.items.${cert.id}.title`)}
+              description={t(`certificates.items.${cert.id}.desc`)}
+              duration={t(`certificates.items.${cert.id}.duration`)}
+              icon={cert.icon}
+              delay={i * 0.1}
+            />
           ))}
         </div>
 

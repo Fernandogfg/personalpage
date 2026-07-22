@@ -8,11 +8,8 @@
 }
 
 .section {
-  padding: var(--section-padding);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  padding: 4rem 2rem;
+  background: var(--color-bg);
 }
 
 .section-title {
@@ -27,7 +24,7 @@
 .section-subtitle {
   font-size: 1.1rem;
   color: var(--color-text-muted);
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .btn {
