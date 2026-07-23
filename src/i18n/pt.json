@@ -22,10 +22,10 @@
     "education": "Ciência da Computação",
     "languages": "Português & Inglês",
     "timeline": {
-      "2017": { "title": "Engenharia Ambiental", "desc": "Início na UFMS — base analítica e resolução de problemas" },
-      "2018": { "title": "Vancouver, Canadá", "desc": "Diploma de Negócios e Inglês Avançado na LCC" },
+      "2017a": { "title": "Vancouver, Canadá", "desc": "Diploma de Negócios e Inglês Avançado na LCC" },
+      "2017b": { "title": "Engenharia Ambiental", "desc": "Início na UFMS — base analítica e resolução de problemas" },
       "2022": { "title": "Ciência da Computação", "desc": "Início do bacharelado na Universidade Estácio de Sá" },
-      "2024": { "title": "Full Stack Mach1", "desc": "Formação intensiva em desenvolvimento web Full Stack" },
+      "2022b": { "title": "Full Stack Mach1", "desc": "Formação intensiva em desenvolvimento web Full Stack (810h)" },
       "now": { "title": "Dev Full Stack Jr.", "desc": "Construindo o futuro, uma linha de código por vez" }
     }
   },

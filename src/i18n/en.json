@@ -22,10 +22,10 @@
     "education": "Computer Science",
     "languages": "Portuguese & English",
     "timeline": {
-      "2017": { "title": "Environmental Engineering", "desc": "Started at UFMS — analytical foundation and problem-solving" },
-      "2018": { "title": "Vancouver, Canada", "desc": "Business Diploma and Advanced English at LCC" },
+      "2017a": { "title": "Vancouver, Canada", "desc": "Business Diploma and Advanced English at LCC" },
+      "2017b": { "title": "Environmental Engineering", "desc": "Started at UFMS — analytical foundation and problem-solving" },
       "2022": { "title": "Computer Science", "desc": "Started BS degree at Estácio de Sá University" },
-      "2024": { "title": "Full Stack Mach1", "desc": "Intensive Full Stack web development training" },
+      "2022b": { "title": "Full Stack Mach1", "desc": "Intensive Full Stack web development training (810h)" },
       "now": { "title": "Jr. Full Stack Dev", "desc": "Building the future, one line of code at a time" }
     }
   },
