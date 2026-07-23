@@ -10,14 +10,14 @@
   "hero": {
     "greeting": "Olá, eu sou",
     "name": "Fernando Gabriel",
-    "roles": ["Desenvolvedor Full Stack", "Entusiasta React", "Solucionador de Problemas"],
+    "roles": ["Desenvolvedor Full Stack", "Experiência em Frontend", "Experiência em Backend"],
     "cta_projects": "Ver Projetos",
     "cta_cv": "Baixar CV"
   },
   "about": {
     "title": "Sobre Mim",
     "subtitle": "Minha jornada na tecnologia",
-    "description": "Desenvolvedor Full Stack Junior apaixonado por criar soluções web inovadoras. Atualmente cursando Ciência da Computação na Universidade Estácio de Sá, com experiência internacional no Canadá e formação intensiva em desenvolvimento Full Stack pela Mach1.",
+    "description": "Desenvolvedor Full Stack Junior com experiência em frontend e backend. Trabalho com React, Java, Node.js, Firebase, Supabase e bancos relacionais. Cursando Ciência da Computação na Estácio de Sá, com vivência internacional no Canadá e formação intensiva Full Stack (810h) pela Mach1.",
     "location": "Campo Grande, MS",
     "education": "Ciência da Computação",
     "languages": "Português & Inglês",
@@ -114,7 +114,7 @@
   "recruiter_hero": {
     "greeting": "Olá, eu sou",
     "name": "Fernando Gabriel",
-    "roles": ["Desenvolvedor Full Stack", "Entusiasta React", "Solucionador de Problemas"],
+    "roles": ["Desenvolvedor Full Stack", "Experiência em Frontend", "Experiência em Backend"],
     "cta_cv": "Baixar CV"
   }
 }

@@ -10,14 +10,14 @@
   "hero": {
     "greeting": "Hi, I'm",
     "name": "Fernando Gabriel",
-    "roles": ["Full Stack Developer", "React Enthusiast", "Problem Solver"],
+    "roles": ["Full Stack Developer", "Frontend Experience", "Backend Experience"],
     "cta_projects": "View Projects",
     "cta_cv": "Download CV"
   },
   "about": {
     "title": "About Me",
     "subtitle": "My journey in technology",
-    "description": "Junior Full Stack Developer passionate about building modern web applications. Currently pursuing a Computer Science degree at Estácio de Sá University, with international experience in Canada (Business Diploma & Advanced English) and 810h of intensive Full Stack training at Mach1.",
+    "description": "Junior Full Stack Developer with frontend and backend experience. I work with React, Java, Node.js, Firebase, Supabase, and relational databases. Currently pursuing a Computer Science degree at Estácio de Sá University, with international experience in Canada (Business Diploma & Advanced English) and 810h of intensive Full Stack training at Mach1.",
     "location": "Campo Grande, MS",
     "education": "Computer Science",
     "languages": "Portuguese & English",
@@ -114,7 +114,7 @@
   "recruiter_hero": {
     "greeting": "Hi, I'm",
     "name": "Fernando Gabriel",
-    "roles": ["Full Stack Developer", "React Enthusiast", "Problem Solver"],
+    "roles": ["Full Stack Developer", "Frontend Experience", "Backend Experience"],
     "cta_cv": "Download CV"
   }
 }
