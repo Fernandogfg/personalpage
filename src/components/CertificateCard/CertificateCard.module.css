@@ -1,18 +1,39 @@
+.scene {
+  perspective: 1000px;
+}
+
 .card {
   background: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid rgba(0, 212, 255, 0.1);
   border-radius: var(--border-radius);
-  padding: 1.75rem;
   cursor: pointer;
-  transition: all var(--transition-medium);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
 }
 
 .card:hover {
   border-color: rgba(0, 212, 255, 0.3);
   box-shadow: var(--glow-accent);
+}
+
+.cardContent {
+  padding: 1.75rem;
+  position: relative;
+  z-index: 1;
+}
+
+.glare {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: var(--border-radius);
+  mix-blend-mode: overlay;
 }
 
 .iconArea {
@@ -130,4 +151,17 @@
   border: 1px dashed rgba(0, 212, 255, 0.2);
   border-radius: var(--border-radius-sm);
   background: rgba(0, 212, 255, 0.03);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+    transform: none !important;
+  }
+  .glare {
+    display: none;
+  }
+  .cardContent {
+    transform: none !important;
+  }
 }
