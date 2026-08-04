@@ -87,6 +87,7 @@ export default function NotesPage() {
   const [saving, setSaving] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [dbError, setDbError] = useState(false);
+  const [graphPreview, setGraphPreview] = useState(null);
   const saveTimer = useRef(null);
 
   const fetchNotes = useCallback(async () => {
@@ -156,6 +157,14 @@ export default function NotesPage() {
     const note = notes.find(n => n.id === id);
     if (note) selectNote(note);
   }, [notes, selectNote]);
+
+  const previewNoteInGraph = useCallback((id) => {
+    const note = notes.find(n => n.id === id);
+    if (note) {
+      setGraphPreview(note);
+      setActiveId(note.id);
+    }
+  }, [notes]);
 
   const createNote = async () => {
     const { data, error } = await supabase
@@ -346,7 +355,35 @@ export default function NotesPage() {
         </div>
 
         {view === 'graph' ? (
-          <NoteGraph notes={notes} activeId={activeId} onSelectNote={selectNoteById} />
+          <div className={styles.graphContainer}>
+            <NoteGraph notes={notes} activeId={activeId} onSelectNote={previewNoteInGraph} />
+            {graphPreview && (
+              <div className={styles.graphPreview}>
+                <div className={styles.graphPreviewHeader}>
+                  <h3 className={styles.graphPreviewTitle}>{graphPreview.title}</h3>
+                  <div className={styles.graphPreviewActions}>
+                    <button
+                      className={styles.graphPreviewOpen}
+                      onClick={() => { selectNote(graphPreview); setGraphPreview(null); }}
+                    >
+                      Abrir
+                    </button>
+                    <button
+                      className={styles.graphPreviewClose}
+                      onClick={() => setGraphPreview(null)}
+                    >
+                      x
+                    </button>
+                  </div>
+                </div>
+                <div className={styles.graphPreviewBody}>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {renderContent(graphPreview.content || '*Nota vazia*')}
+                  </ReactMarkdown>
+                </div>
+              </div>
+            )}
+          </div>
         ) : activeId ? (
           view === 'edit' ? (
             <div className={styles.cmWrapper}>
