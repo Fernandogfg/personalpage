@@ -3,17 +3,22 @@
   height: calc(100vh - 70px);
   position: relative;
   overflow: hidden;
+  background: #0d0d24;
 }
 
 /* Sidebar */
 .sidebar {
   width: 280px;
   min-width: 280px;
-  background: rgba(17, 17, 40, 0.6);
+  background: #0a0a1e;
   border-right: 1px solid rgba(0, 212, 255, 0.1);
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.25s ease, margin-left 0.25s ease;
+}
+
+.sidebarClosed {
+  margin-left: -280px;
 }
 
 .sidebarHeader {
@@ -27,6 +32,12 @@
   font-family: var(--font-heading);
   font-size: 1.1rem;
   color: var(--color-text);
+}
+
+.sidebarActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .newBtn {
@@ -47,6 +58,51 @@
 .newBtn:hover {
   background: rgba(0, 212, 255, 0.2);
   border-color: var(--color-accent);
+}
+
+.closeSidebarBtn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(0, 212, 255, 0.1);
+  border-radius: var(--border-radius-sm);
+  color: var(--color-text-muted);
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.closeSidebarBtn:hover {
+  background: rgba(0, 212, 255, 0.08);
+  color: var(--color-accent);
+}
+
+.openSidebarBtn {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 24px;
+  height: 48px;
+  background: #0a0a1e;
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  border-left: none;
+  border-radius: 0 6px 6px 0;
+  color: var(--color-accent);
+  font-size: 0.65rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast);
+}
+
+.openSidebarBtn:hover {
+  background: rgba(0, 212, 255, 0.08);
 }
 
 .searchInput {
@@ -144,34 +200,13 @@
   padding: 2rem 1rem;
 }
 
-/* Sidebar toggle */
-.sidebarToggle {
-  position: absolute;
-  left: 280px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  width: 20px;
-  height: 48px;
-  background: rgba(17, 17, 40, 0.8);
-  border: 1px solid rgba(0, 212, 255, 0.15);
-  border-left: none;
-  border-radius: 0 6px 6px 0;
-  color: var(--color-accent);
-  font-size: 0.65rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: left 0.3s ease;
-}
-
 /* Editor */
 .editor {
   flex: 1;
   display: flex;
   flex-direction: column;
   min-width: 0;
+  background: #0d0d24;
 }
 
 .editorHeader {
@@ -392,6 +427,56 @@
   font-size: 0.95rem;
 }
 
+/* Error page */
+.errorPage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.errorPage h2 {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: #ff4d6a;
+}
+
+.errorPage p {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  max-width: 400px;
+}
+
+.errorPage code {
+  font-family: var(--font-mono);
+  color: var(--color-accent);
+  background: rgba(0, 212, 255, 0.08);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+.retryBtn {
+  padding: 0.6rem 1.5rem;
+  background: transparent;
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: var(--border-radius-sm);
+  color: var(--color-accent);
+  font-size: 0.85rem;
+  font-family: var(--font-heading);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-top: 0.5rem;
+}
+
+.retryBtn:hover {
+  background: rgba(0, 212, 255, 0.08);
+  border-color: var(--color-accent);
+}
+
 /* Mobile */
 @media (max-width: 768px) {
   .sidebar {
@@ -400,23 +485,25 @@
     top: 0;
     bottom: 0;
     z-index: 5;
+    background: #0a0a1e;
+  }
+
+  .sidebarClosed {
     transform: translateX(-100%);
-    background: rgba(17, 17, 40, 0.95);
+    margin-left: 0;
   }
 
   .sidebarOpen {
     transform: translateX(0);
   }
 
-  .sidebarToggle {
-    left: 0;
-    border-left: 1px solid rgba(0, 212, 255, 0.15);
-    border-radius: 0 6px 6px 0;
+  .editorHeader {
+    flex-wrap: wrap;
+    padding: 0.75rem 1rem;
   }
 
-  .sidebarOpen ~ .sidebarToggle,
-  .container:has(.sidebarOpen) .sidebarToggle {
-    left: 280px;
+  .titleInput {
+    font-size: 1.1rem;
   }
 }
 

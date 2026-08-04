@@ -17,15 +17,21 @@ export default function NotesPage() {
   const [search, setSearch] = useState('');
   const [saving, setSaving] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [dbError, setDbError] = useState(false);
   const saveTimer = useRef(null);
   const editorRef = useRef(null);
 
   const fetchNotes = useCallback(async () => {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('notes')
       .select('id, title, content, updated_at')
       .eq('user_id', user.id)
       .order('updated_at', { ascending: false });
+
+    if (error) {
+      setDbError(true);
+      return;
+    }
     if (data) setNotes(data);
   }, [user.id]);
 
@@ -76,6 +82,7 @@ export default function NotesPage() {
     setTitle(note.title);
     setContent(note.content || '');
     setMode('edit');
+    if (window.innerWidth < 768) setSidebarOpen(false);
   };
 
   const createNote = async () => {
@@ -85,12 +92,18 @@ export default function NotesPage() {
       .select()
       .single();
 
-    if (!error && data) {
+    if (error) {
+      setDbError(true);
+      return;
+    }
+
+    if (data) {
       setNotes(prev => [data, ...prev]);
       setActiveId(data.id);
       setTitle(data.title);
       setContent('');
       setMode('edit');
+      if (window.innerWidth < 768) setSidebarOpen(false);
     }
   };
 
@@ -132,11 +145,10 @@ export default function NotesPage() {
   };
 
   const renderContent = (text) => {
-    const withLinks = text.replace(
+    return text.replace(
       /\[\[([^\]]+)\]\]/g,
       (_, name) => `[${name}](#wiki:${encodeURIComponent(name)})`
     );
-    return withLinks;
   };
 
   const filteredNotes = notes.filter(n =>
@@ -156,27 +168,38 @@ export default function NotesPage() {
       const start = e.target.selectionStart;
       const end = e.target.selectionEnd;
       const val = e.target.value;
-      setContent(val.substring(0, start) + '  ' + val.substring(end));
+      const newContent = val.substring(0, start) + '  ' + val.substring(end);
+      setContent(newContent);
       setTimeout(() => {
         e.target.selectionStart = e.target.selectionEnd = start + 2;
       }, 0);
-      if (activeId) scheduleAutosave(activeId, title, val.substring(0, start) + '  ' + val.substring(end));
+      if (activeId) scheduleAutosave(activeId, title, newContent);
     }
   };
 
+  if (dbError) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.errorPage}>
+          <h2>Tabela de notas não encontrada</h2>
+          <p>Execute o arquivo <code>supabase_notes_setup.sql</code> no SQL Editor do Supabase para criar a tabela.</p>
+          <button onClick={() => { setDbError(false); fetchNotes(); }} className={styles.retryBtn}>
+            Tentar novamente
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.container}>
-      <button
-        className={styles.sidebarToggle}
-        onClick={() => setSidebarOpen(!sidebarOpen)}
-      >
-        {sidebarOpen ? '◀' : '▶'}
-      </button>
-
-      <aside className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : ''}`}>
+      <aside className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : styles.sidebarClosed}`}>
         <div className={styles.sidebarHeader}>
           <h2 className={styles.sidebarTitle}>Notas</h2>
-          <button onClick={createNote} className={styles.newBtn}>+</button>
+          <div className={styles.sidebarActions}>
+            <button onClick={createNote} className={styles.newBtn} title="Nova nota">+</button>
+            <button onClick={() => setSidebarOpen(false)} className={styles.closeSidebarBtn} title="Fechar">◀</button>
+          </div>
         </div>
 
         <input
@@ -211,6 +234,16 @@ export default function NotesPage() {
           )}
         </div>
       </aside>
+
+      {!sidebarOpen && (
+        <button
+          className={styles.openSidebarBtn}
+          onClick={() => setSidebarOpen(true)}
+          title="Abrir notas"
+        >
+          ▶
+        </button>
+      )}
 
       <main className={styles.editor}>
         {activeId ? (
