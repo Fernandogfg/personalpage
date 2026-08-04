@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 import styles from './DashboardPage.module.css';
@@ -51,7 +52,10 @@ export default function DashboardPage() {
           <h1 className={styles.title}>Dashboard</h1>
           <p className={styles.userEmail}>{user?.email}</p>
         </div>
-        <button onClick={signOut} className={styles.logoutBtn}>Sair</button>
+        <div className={styles.headerActions}>
+          <Link to="/notes" className={styles.notesLink}>📝 Notas</Link>
+          <button onClick={signOut} className={styles.logoutBtn}>Sair</button>
+        </div>
       </div>
 
       {error && (

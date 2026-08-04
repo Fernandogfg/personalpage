@@ -5,6 +5,7 @@ import Layout from './components/Layout/Layout';
 import ClientPage from './pages/ClientPage';
 import RecruiterPage from './pages/RecruiterPage';
 import DashboardPage from './pages/DashboardPage';
+import NotesPage from './pages/NotesPage';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {
@@ -19,6 +20,11 @@ function App() {
               <Route path="dashboard" element={
                 <ProtectedRoute>
                   <DashboardPage />
+                </ProtectedRoute>
+              } />
+              <Route path="notes" element={
+                <ProtectedRoute>
+                  <NotesPage />
                 </ProtectedRoute>
               } />
             </Route>
