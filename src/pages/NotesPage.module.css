@@ -272,23 +272,24 @@
   color: var(--color-text);
 }
 
-/* Textarea */
-.textarea {
-  flex: 1;
-  padding: 1.5rem;
-  background: transparent;
-  border: none;
-  color: var(--color-text);
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  line-height: 1.7;
-  resize: none;
-  outline: none;
-  tab-size: 2;
+.titlePlaceholder {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
 }
 
-.textarea::placeholder {
-  color: var(--color-text-muted);
+/* CodeMirror wrapper */
+.cmWrapper {
+  flex: 1;
+  overflow: hidden;
+}
+
+.cmWrapper :global(.cm-editor) {
+  height: 100%;
+}
+
+.cmWrapper :global(.cm-scroller) {
+  overflow: auto;
 }
 
 /* Preview */
