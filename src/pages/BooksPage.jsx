@@ -13,8 +13,10 @@ const STATUS_ORDER = ['reading', 'want_to_read', 'read'];
 
 async function searchGoogleBooks(query) {
   if (!query.trim()) return [];
+  const key = import.meta.env.VITE_GOOGLE_BOOKS_KEY;
+  const keyParam = key ? `&key=${key}` : '';
   const res = await fetch(
-    `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&maxResults=8&langRestrict=pt`
+    `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&maxResults=8${keyParam}`
   );
   const data = await res.json();
   if (!data.items) return [];
