@@ -53,7 +53,8 @@ export default function DashboardPage() {
           <p className={styles.userEmail}>{user?.email}</p>
         </div>
         <div className={styles.headerActions}>
-          <Link to="/notes" className={styles.notesLink}>📝 Notas</Link>
+          <Link to="/notes" className={styles.notesLink}>Notas</Link>
+          <Link to="/books" className={styles.notesLink}>Livros</Link>
           <button onClick={signOut} className={styles.logoutBtn}>Sair</button>
         </div>
       </div>

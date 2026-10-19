@@ -6,6 +6,7 @@ import ClientPage from './pages/ClientPage';
 import RecruiterPage from './pages/RecruiterPage';
 import DashboardPage from './pages/DashboardPage';
 import NotesPage from './pages/NotesPage';
+import BooksPage from './pages/BooksPage';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {
@@ -25,6 +26,11 @@ function App() {
               <Route path="notes" element={
                 <ProtectedRoute>
                   <NotesPage />
+                </ProtectedRoute>
+              } />
+              <Route path="books" element={
+                <ProtectedRoute>
+                  <BooksPage />
                 </ProtectedRoute>
               } />
             </Route>
