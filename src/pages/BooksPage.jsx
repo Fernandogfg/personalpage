@@ -11,6 +11,23 @@ const STATUS_LABELS = {
 
 const STATUS_ORDER = ['reading', 'want_to_read', 'read'];
 
+async function searchOpenLibrary(query) {
+  if (!query.trim()) return [];
+  const res = await fetch(
+    `https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&limit=8&fields=key,title,author_name,cover_i,first_publish_year,number_of_pages_median`
+  );
+  const data = await res.json();
+  if (!data.docs) return [];
+  return data.docs.map(doc => ({
+    google_books_id: doc.key,
+    title: doc.title || '',
+    author: (doc.author_name || []).join(', '),
+    cover_url: doc.cover_i ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-M.jpg` : '',
+    description: '',
+    page_count: doc.number_of_pages_median || 0,
+  }));
+}
+
 async function searchGoogleBooks(query) {
   if (!query.trim()) return [];
   const key = import.meta.env.VITE_GOOGLE_BOOKS_KEY;
@@ -18,6 +35,7 @@ async function searchGoogleBooks(query) {
   const res = await fetch(
     `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&maxResults=8${keyParam}`
   );
+  if (!res.ok) return null;
   const data = await res.json();
   if (!data.items) return [];
   return data.items.map(item => {
@@ -31,6 +49,12 @@ async function searchGoogleBooks(query) {
       page_count: info.pageCount || 0,
     };
   });
+}
+
+async function searchBooks(query) {
+  const googleResults = await searchGoogleBooks(query);
+  if (googleResults && googleResults.length > 0) return googleResults;
+  return searchOpenLibrary(query);
 }
 
 export default function BooksPage() {
@@ -77,7 +101,7 @@ export default function BooksPage() {
     if (!val.trim()) { setSearchResults([]); return; }
     setSearching(true);
     searchTimer.current = setTimeout(async () => {
-      const results = await searchGoogleBooks(val);
+      const results = await searchBooks(val);
       setSearchResults(results);
       setSearching(false);
     }, 500);
