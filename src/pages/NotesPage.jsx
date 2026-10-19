@@ -5,9 +5,11 @@ import CodeMirror from '@uiw/react-codemirror';
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { languages } from '@codemirror/language-data';
 import { EditorView } from '@codemirror/view';
+import { autocompletion } from '@codemirror/autocomplete';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import NoteGraph from '../components/NoteGraph/NoteGraph';
+import QuickSwitcher from '../components/QuickSwitcher/QuickSwitcher';
 import styles from './NotesPage.module.css';
 
 const AUTOSAVE_DELAY = 1000;
@@ -47,7 +49,6 @@ const cmTheme = EditorView.theme({
   '.cm-line': {
     padding: '0 0.5rem',
   },
-  // Markdown syntax highlighting
   '.cm-header-1': { color: '#00d4ff', fontSize: '1.4em', fontWeight: '700' },
   '.cm-header-2': { color: '#00d4ff', fontSize: '1.2em', fontWeight: '600' },
   '.cm-header-3': { color: '#00d4ff', fontSize: '1.1em', fontWeight: '600' },
@@ -68,13 +69,26 @@ const cmTheme = EditorView.theme({
   '.cm-propertyName': { color: '#79c0ff' },
   '.cm-typeName': { color: '#ff7b72' },
   '.cm-def': { color: '#ffa657' },
+  // Autocomplete tooltip
+  '.cm-tooltip': {
+    backgroundColor: 'rgba(13, 13, 36, 0.98)',
+    border: '1px solid rgba(0, 212, 255, 0.2)',
+    borderRadius: '6px',
+    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
+  },
+  '.cm-tooltip.cm-tooltip-autocomplete > ul': {
+    fontFamily: 'JetBrains Mono, monospace',
+    fontSize: '13px',
+  },
+  '.cm-tooltip.cm-tooltip-autocomplete > ul > li': {
+    padding: '4px 12px',
+    color: '#e0e8ff',
+  },
+  '.cm-tooltip.cm-tooltip-autocomplete > ul > li[aria-selected]': {
+    backgroundColor: 'rgba(0, 212, 255, 0.12)',
+    color: '#00d4ff',
+  },
 }, { dark: true });
-
-const cmExtensions = [
-  markdown({ base: markdownLanguage, codeLanguages: languages }),
-  EditorView.lineWrapping,
-  cmTheme,
-];
 
 export default function NotesPage() {
   const { user } = useAuth();
@@ -88,7 +102,42 @@ export default function NotesPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [dbError, setDbError] = useState(false);
   const [graphPreview, setGraphPreview] = useState(null);
+  const [quickSwitcherOpen, setQuickSwitcherOpen] = useState(false);
+  const [backlinksOpen, setBacklinksOpen] = useState(true);
   const saveTimer = useRef(null);
+  const notesRef = useRef(notes);
+
+  useEffect(() => { notesRef.current = notes; }, [notes]);
+
+  const wikiLinkCompletion = useMemo(() => {
+    return autocompletion({
+      override: [(ctx) => {
+        const before = ctx.matchBefore(/\[\[[^\]]*$/);
+        if (!before) return null;
+        const query = before.text.slice(2).toLowerCase();
+        const options = notesRef.current
+          .filter(n => n.title.toLowerCase().includes(query))
+          .slice(0, 12)
+          .map(n => ({
+            label: n.title,
+            apply: `[[${n.title}]]`,
+            type: 'text',
+          }));
+        return {
+          from: before.from,
+          options,
+          filter: false,
+        };
+      }],
+    });
+  }, []);
+
+  const cmExtensions = useMemo(() => [
+    markdown({ base: markdownLanguage, codeLanguages: languages }),
+    EditorView.lineWrapping,
+    cmTheme,
+    wikiLinkCompletion,
+  ], [wikiLinkCompletion]);
 
   const fetchNotes = useCallback(async () => {
     const { data, error } = await supabase
@@ -107,6 +156,22 @@ export default function NotesPage() {
   useEffect(() => {
     fetchNotes();
   }, [fetchNotes]);
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKey = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'o') {
+        e.preventDefault();
+        setQuickSwitcherOpen(true);
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
+        e.preventDefault();
+        createNote();
+      }
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, []);
 
   const saveNote = useCallback(async (id, newTitle, newContent) => {
     setSaving(true);
@@ -188,6 +253,22 @@ export default function NotesPage() {
     }
   };
 
+  const createNoteWithTitle = async (noteTitle) => {
+    const { data, error } = await supabase
+      .from('notes')
+      .insert({ title: noteTitle, content: '', user_id: user.id })
+      .select()
+      .single();
+
+    if (!error && data) {
+      setNotes(prev => [data, ...prev]);
+      setActiveId(data.id);
+      setTitle(data.title);
+      setContent('');
+      setView('edit');
+    }
+  };
+
   const deleteNote = async (id) => {
     await supabase.from('notes').delete().eq('id', id);
     setNotes(prev => prev.filter(n => n.id !== id));
@@ -209,28 +290,25 @@ export default function NotesPage() {
     }
   }, [notes, selectNote]);
 
-  const createNoteWithTitle = async (noteTitle) => {
-    const { data, error } = await supabase
-      .from('notes')
-      .insert({ title: noteTitle, content: '', user_id: user.id })
-      .select()
-      .single();
-
-    if (!error && data) {
-      setNotes(prev => [data, ...prev]);
-      setActiveId(data.id);
-      setTitle(data.title);
-      setContent('');
-      setView('edit');
-    }
-  };
-
   const renderContent = (text) => {
     return text.replace(
       /\[\[([^\]]+)\]\]/g,
       (_, name) => `[${name}](#wiki:${encodeURIComponent(name)})`
     );
   };
+
+  // Backlinks: notes that link to the active note
+  const backlinks = useMemo(() => {
+    if (!activeId) return [];
+    const activeNote = notes.find(n => n.id === activeId);
+    if (!activeNote) return [];
+    const activeName = activeNote.title.toLowerCase();
+    return notes.filter(n => {
+      if (n.id === activeId) return false;
+      const matches = [...(n.content || '').matchAll(/\[\[([^\]]+)\]\]/g)];
+      return matches.some(m => m[1].toLowerCase() === activeName);
+    });
+  }, [notes, activeId]);
 
   const filteredNotes = useMemo(() => notes.filter(n =>
     n.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -259,12 +337,24 @@ export default function NotesPage() {
 
   return (
     <div className={styles.container}>
+      {/* Quick Switcher */}
+      <QuickSwitcher
+        isOpen={quickSwitcherOpen}
+        onClose={() => setQuickSwitcherOpen(false)}
+        notes={notes}
+        onSelect={selectNote}
+        onCreate={createNoteWithTitle}
+      />
+
       <aside className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : styles.sidebarClosed}`}>
         <div className={styles.sidebarHeader}>
           <h2 className={styles.sidebarTitle}>Notas</h2>
           <div className={styles.sidebarActions}>
-            <button onClick={createNote} className={styles.newBtn} title="Nova nota">+</button>
-            <button onClick={() => setSidebarOpen(false)} className={styles.closeSidebarBtn} title="Fechar">◀</button>
+            <button onClick={createNote} className={styles.newBtn} title="Nova nota (Ctrl+N)">+</button>
+            <button onClick={() => setQuickSwitcherOpen(true)} className={styles.switcherBtn} title="Quick Switcher (Ctrl+O)">
+              /
+            </button>
+            <button onClick={() => setSidebarOpen(false)} className={styles.closeSidebarBtn} title="Fechar">&#9664;</button>
           </div>
         </div>
 
@@ -307,7 +397,7 @@ export default function NotesPage() {
           onClick={() => setSidebarOpen(true)}
           title="Abrir notas"
         >
-          ▶
+          &#9654;
         </button>
       )}
 
@@ -354,89 +444,125 @@ export default function NotesPage() {
           </div>
         </div>
 
-        {view === 'graph' ? (
-          <div className={styles.graphContainer}>
-            <NoteGraph notes={notes} activeId={activeId} onSelectNote={previewNoteInGraph} />
-            {graphPreview && (
-              <div className={styles.graphPreview}>
-                <div className={styles.graphPreviewHeader}>
-                  <h3 className={styles.graphPreviewTitle}>{graphPreview.title}</h3>
-                  <div className={styles.graphPreviewActions}>
-                    <button
-                      className={styles.graphPreviewOpen}
-                      onClick={() => { selectNote(graphPreview); setGraphPreview(null); }}
-                    >
-                      Abrir
-                    </button>
-                    <button
-                      className={styles.graphPreviewClose}
-                      onClick={() => setGraphPreview(null)}
-                    >
-                      x
-                    </button>
+        <div className={styles.editorBody}>
+          {view === 'graph' ? (
+            <div className={styles.graphContainer}>
+              <NoteGraph notes={notes} activeId={activeId} onSelectNote={previewNoteInGraph} />
+              {graphPreview && (
+                <div className={styles.graphPreview}>
+                  <div className={styles.graphPreviewHeader}>
+                    <h3 className={styles.graphPreviewTitle}>{graphPreview.title}</h3>
+                    <div className={styles.graphPreviewActions}>
+                      <button
+                        className={styles.graphPreviewOpen}
+                        onClick={() => { selectNote(graphPreview); setGraphPreview(null); }}
+                      >
+                        Abrir
+                      </button>
+                      <button
+                        className={styles.graphPreviewClose}
+                        onClick={() => setGraphPreview(null)}
+                      >
+                        x
+                      </button>
+                    </div>
+                  </div>
+                  <div className={styles.graphPreviewBody}>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      {renderContent(graphPreview.content || '*Nota vazia*')}
+                    </ReactMarkdown>
                   </div>
                 </div>
-                <div className={styles.graphPreviewBody}>
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {renderContent(graphPreview.content || '*Nota vazia*')}
-                  </ReactMarkdown>
-                </div>
+              )}
+            </div>
+          ) : activeId ? (
+            <div className={styles.editorContent}>
+              <div className={styles.editorMain}>
+                {view === 'edit' ? (
+                  <div className={styles.cmWrapper}>
+                    <CodeMirror
+                      value={content}
+                      onChange={handleContentChange}
+                      extensions={cmExtensions}
+                      theme="none"
+                      basicSetup={{
+                        lineNumbers: true,
+                        highlightActiveLineGutter: true,
+                        highlightActiveLine: true,
+                        foldGutter: true,
+                        bracketMatching: true,
+                        closeBrackets: true,
+                        indentOnInput: true,
+                        tabSize: 2,
+                      }}
+                      placeholder="Escreva em markdown... Use [[nome]] para linkar notas"
+                    />
+                  </div>
+                ) : (
+                  <div className={styles.preview}>
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        a: ({ href, children }) => {
+                          if (href && href.startsWith('#wiki:')) {
+                            const name = decodeURIComponent(href.replace('#wiki:', ''));
+                            return (
+                              <a
+                                href="#"
+                                className={styles.wikiLink}
+                                onClick={(e) => { e.preventDefault(); navigateToNote(name); }}
+                              >
+                                {children}
+                              </a>
+                            );
+                          }
+                          return <a href={href} target="_blank" rel="noopener noreferrer">{children}</a>;
+                        }
+                      }}
+                    >
+                      {renderContent(content)}
+                    </ReactMarkdown>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        ) : activeId ? (
-          view === 'edit' ? (
-            <div className={styles.cmWrapper}>
-              <CodeMirror
-                value={content}
-                onChange={handleContentChange}
-                extensions={cmExtensions}
-                theme="none"
-                basicSetup={{
-                  lineNumbers: true,
-                  highlightActiveLineGutter: true,
-                  highlightActiveLine: true,
-                  foldGutter: true,
-                  bracketMatching: true,
-                  closeBrackets: true,
-                  indentOnInput: true,
-                  tabSize: 2,
-                }}
-                placeholder="Escreva em markdown... Use [[nome]] para linkar notas"
-              />
+
+              {/* Backlinks panel */}
+              {backlinks.length > 0 && (
+                <div className={styles.backlinksPanel}>
+                  <button
+                    className={styles.backlinksToggle}
+                    onClick={() => setBacklinksOpen(!backlinksOpen)}
+                  >
+                    <span className={styles.backlinksArrow}>{backlinksOpen ? '▾' : '▸'}</span>
+                    Backlinks ({backlinks.length})
+                  </button>
+                  {backlinksOpen && (
+                    <div className={styles.backlinksList}>
+                      {backlinks.map(bl => (
+                        <div
+                          key={bl.id}
+                          className={styles.backlinkItem}
+                          onClick={() => selectNote(bl)}
+                        >
+                          <span className={styles.backlinkTitle}>{bl.title}</span>
+                          <p className={styles.backlinkExcerpt}>
+                            {(bl.content || '').slice(0, 120)}...
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           ) : (
-            <div className={styles.preview}>
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                components={{
-                  a: ({ href, children }) => {
-                    if (href && href.startsWith('#wiki:')) {
-                      const name = decodeURIComponent(href.replace('#wiki:', ''));
-                      return (
-                        <a
-                          href="#"
-                          className={styles.wikiLink}
-                          onClick={(e) => { e.preventDefault(); navigateToNote(name); }}
-                        >
-                          {children}
-                        </a>
-                      );
-                    }
-                    return <a href={href} target="_blank" rel="noopener noreferrer">{children}</a>;
-                  }
-                }}
-              >
-                {renderContent(content)}
-              </ReactMarkdown>
+            <div className={styles.placeholder}>
+              <span className={styles.placeholderIcon}>&#128221;</span>
+              <p>Selecione uma nota ou crie uma nova</p>
+              <p className={styles.placeholderHint}>Ctrl+O para busca rapida &middot; Ctrl+N para nova nota</p>
             </div>
-          )
-        ) : (
-          <div className={styles.placeholder}>
-            <span className={styles.placeholderIcon}>📝</span>
-            <p>Selecione uma nota ou crie uma nova</p>
-          </div>
-        )}
+          )}
+        </div>
       </main>
     </div>
   );

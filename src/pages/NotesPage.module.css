@@ -60,6 +60,27 @@
   border-color: var(--color-accent);
 }
 
+.switcherBtn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: var(--border-radius-sm);
+  color: var(--color-accent);
+  font-size: 1rem;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.switcherBtn:hover {
+  background: rgba(0, 212, 255, 0.2);
+  border-color: var(--color-accent);
+}
+
 .closeSidebarBtn {
   width: 32px;
   height: 32px;
@@ -432,6 +453,99 @@
     bottom: 0.5rem;
     top: auto;
   }
+}
+
+/* Editor body layout */
+.editorBody {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.editorContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.editorMain {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+}
+
+/* Backlinks panel */
+.backlinksPanel {
+  border-top: 1px solid rgba(0, 212, 255, 0.1);
+  background: rgba(10, 10, 26, 0.5);
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.backlinksToggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  text-align: left;
+  transition: color var(--transition-fast);
+}
+
+.backlinksToggle:hover {
+  color: var(--color-accent);
+}
+
+.backlinksArrow {
+  font-size: 0.7rem;
+}
+
+.backlinksList {
+  padding: 0 0.75rem 0.75rem;
+}
+
+.backlinkItem {
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  margin-bottom: 0.25rem;
+}
+
+.backlinkItem:hover {
+  background: rgba(0, 212, 255, 0.06);
+}
+
+.backlinkTitle {
+  font-size: 0.85rem;
+  color: var(--color-accent);
+  font-family: var(--font-heading);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.backlinkExcerpt {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.placeholderHint {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  opacity: 0.6;
 }
 
 /* CodeMirror wrapper */
