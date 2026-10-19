@@ -13,19 +13,32 @@ const STATUS_ORDER = ['reading', 'want_to_read', 'read'];
 
 async function searchOpenLibrary(query) {
   if (!query.trim()) return [];
-  const res = await fetch(
-    `https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&limit=8&fields=key,title,author_name,cover_i,first_publish_year,number_of_pages_median`
-  );
-  const data = await res.json();
-  if (!data.docs) return [];
-  return data.docs.map(doc => ({
-    google_books_id: doc.key,
-    title: doc.title || '',
-    author: (doc.author_name || []).join(', '),
-    cover_url: doc.cover_i ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-M.jpg` : '',
-    description: '',
-    page_count: doc.number_of_pages_median || 0,
-  }));
+  const encoded = encodeURIComponent(query);
+  const fields = 'key,title,author_name,cover_i,first_publish_year,number_of_pages_median';
+
+  const [generalRes, authorRes] = await Promise.all([
+    fetch(`https://openlibrary.org/search.json?q=${encoded}&limit=8&fields=${fields}`),
+    fetch(`https://openlibrary.org/search.json?author=${encoded}&limit=8&fields=${fields}`),
+  ]);
+
+  const [generalData, authorData] = await Promise.all([generalRes.json(), authorRes.json()]);
+
+  const seen = new Set();
+  const results = [];
+  for (const doc of [...(authorData.docs || []), ...(generalData.docs || [])]) {
+    if (seen.has(doc.key)) continue;
+    seen.add(doc.key);
+    results.push({
+      google_books_id: doc.key,
+      title: doc.title || '',
+      author: (doc.author_name || []).join(', '),
+      cover_url: doc.cover_i ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-M.jpg` : '',
+      description: '',
+      page_count: doc.number_of_pages_median || 0,
+    });
+    if (results.length >= 10) break;
+  }
+  return results;
 }
 
 async function searchGoogleBooks(query) {
