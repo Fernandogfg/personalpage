@@ -7,6 +7,7 @@ import RecruiterPage from './pages/RecruiterPage';
 import DashboardPage from './pages/DashboardPage';
 import NotesPage from './pages/NotesPage';
 import BooksPage from './pages/BooksPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
                   <BooksPage />
                 </ProtectedRoute>
               } />
+              <Route path="reset-password" element={<ResetPasswordPage />} />
             </Route>
           </Routes>
         </AnimatePresence>

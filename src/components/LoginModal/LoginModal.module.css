@@ -88,3 +88,30 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+.forgotLink {
+  display: inline-block;
+  margin-top: 1rem;
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 0.82rem;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.15s;
+}
+
+.forgotLink:hover {
+  color: var(--color-accent);
+}
+
+.successMsg {
+  text-align: center;
+  color: var(--color-text);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.successMsg strong {
+  color: var(--color-accent);
+}
